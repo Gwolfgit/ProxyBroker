@@ -1,5 +1,4 @@
 import asyncio
-import random
 from urllib.parse import urlparse
 
 import aiohttp
@@ -7,6 +6,7 @@ import aiohttp
 from .errors import ResolveError
 from .resolver import Resolver
 from .utils import get_headers, log
+import secrets
 
 
 class Judge:
@@ -43,7 +43,7 @@ class Judge:
             scheme = 'SMTP'
         else:
             scheme = 'HTTP'
-        return random.choice(cls.available[scheme])
+        return secrets.SystemRandom().choice(cls.available[scheme])
 
     @classmethod
     def clear(cls):

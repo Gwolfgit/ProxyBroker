@@ -1,7 +1,6 @@
 import asyncio
 import ipaddress
 import os.path
-import random
 import socket
 from collections import namedtuple
 
@@ -11,6 +10,7 @@ import maxminddb
 
 from .errors import ResolveError
 from .utils import DATA_DIR, log
+import secrets
 
 GeoData = namedtuple(
     'GeoData', ['code', 'name', 'region_code', 'region_name', 'city_name']
@@ -85,7 +85,7 @@ class Resolver:
         return GeoData(code, name, region_code, region_name, city_name)
 
     def _pop_random_ip_host(self):
-        host = random.choice(self._ip_hosts)
+        host = secrets.SystemRandom().choice(self._ip_hosts)
         self._ip_hosts.remove(host)
         return host
 
