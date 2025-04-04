@@ -3,7 +3,6 @@
 import logging
 import os
 import os.path
-import random
 import re
 import shutil
 import tarfile
@@ -12,6 +11,7 @@ import urllib.request
 
 from . import __version__ as version
 from .errors import BadStatusLine
+import secrets
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(BASE_DIR, 'data')
@@ -37,7 +37,7 @@ IPPortPatternGlobal = re.compile(
 
 
 def get_headers(rv=False):
-    _rv = str(random.randint(1000, 9999)) if rv else ''
+    _rv = str(secrets.SystemRandom().randint(1000, 9999)) if rv else ''
     headers = {
         # 'User-Agent': 'Mozilla/5.0 (X11; U; Linux i386; ru-RU; rv:2.0) Gecko/20100625 Firefox/3.5.11',  # noqa
         'User-Agent': 'PxBroker/%s/%s' % (version, _rv),
